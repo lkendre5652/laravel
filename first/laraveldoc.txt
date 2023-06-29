@@ -1,0 +1,50 @@
+# php artisan serve: Run server
+# App - Heart of Laravel
+# view file "welcome.blade" - fist execute this page.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## How to Call View
+
+=> Route::view('first','first');
+=>
+Route::get('/first', function () {
+    return view('first');
+});
+
+------------------------print routes-----------------------------
+Route::get('/first/{id}',function($id){  
+    echo $id;
+    return View('first');
+
+});
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## Create Controller 
+=>CMD : php artisan make:controller user
+or 
+CMD : php artisan make:controller HomeController
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## Routes calling controller
+=> use App\Http\Controllers\HomeController; - mention the name of controller
+=> define the route as below -> Route::get('/',[HomeController::class,'index']);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## How to pass Id & Data Dynamically ##
+### Controller ###
+    function careerDetail($id){            
+        return view('career_detail',array('id'=>$id));
+    }
+### View ###
+    => view file should be 'blade.php'
+    => You can call it as like - {{ $prod_id }}
+    <?php echo $id; ?>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
