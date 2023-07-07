@@ -41,8 +41,29 @@ CMD : php artisan make:controller HomeController
     <?php echo $id; ?>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## Create Component ##
+CMD : php artisan make:component slidebar
+# Version 7+. 
+# Piece of code.
+
+STEPS: CMD : php artisan make:component sidebar
+=> Component is created in app view as 'sidebar' this is the main coding file
+=> Define Route in Web.php file for instance: 
+    Route::view('page','page');
+    Route::view('page2','page2');
+=> Create view as name :
+    =>page and page 2 
+    => call the componenet as like : <x-sidebar />
+=> Pass Values in component from view:
+    => <x-sidebar name="Laxman" address="Pune" />
+=> Access values in component:
+    => view/components:
+        <div>
+            <h1>My name is {{ $name }} and address is {{ $address }}</h1>
+        </div>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

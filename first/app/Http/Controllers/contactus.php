@@ -8,7 +8,7 @@ class contactus extends Controller
 {
     
     function index(){
-        echo "Contact Us Page Controller";
+        return view('shop.header').view('contact-us').view('shop.footer');
     }
     function contactDetails(){
         echo "Contact Details Page";
