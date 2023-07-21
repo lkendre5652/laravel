@@ -16,13 +16,53 @@ use App\Http\Controllers\service;
 use App\Http\Controllers\Form;
 // define the home routes
 // Route::get('/about/{id}',[HomeController::class,'about']);
+// blade Template
+//Route::view('web','web');
+
+// middleware view
+Route::view('denied','denied');
+Route::view('mylogin','mylogin'); // UserCheck1 middleware
+
+//Route::view('page2','page2')->middleware("UserCheck1");
+
+// Group middleware
+Route::group(['middleware' => ['UserCheck'] ],function(){
+    Route::view('page','page');
+    //Route::view('page2','page2');
+});
+// Group middleware
+
+
+
+Route::view('mynewpage','mynewpage');
+Route::view('login','login');
+Route::view('signup','register');
+Route::post('/signaction',[Form::class, 'signup']);
+Route::post('/formSubmit',[Form::class,'index']);
+
+Route::get('/web',function(){   
+    //return view('web',array("name" => 'Laxman'));
+    //return view('web',array('data'=> array('fname' => 'Laxman', 'lname' => 'Kendre')));
+    //return view('web',array('data' => array(1,2,3,4,5)));
+    return view('web', array( 'data' => array('fname' => 'Laxman', 'lname' => 'Kendre') ) );
+});
+
+
+// view 
+
+
+
 // Form 
 Route::view('form','form');
 Route::post('/formSubmit',[Form::class,'index']);
 
+
+
+
 // components 
-Route::view('page','page');
-Route::view('page2','page2');
+// Route::view('page','page');
+// Route::view('page','page')->middleware("UserCheck");
+// Route::view('page2','page2');
 Route::view('sidebar2','sidebar2');
 Route::view('mysidebar','mysidebar');
 

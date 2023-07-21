@@ -1,6 +1,6 @@
 # php artisan serve: Run server
 # App - Heart of Laravel
-# view file "welcome.blade" - fist execute this page.
+# view file "welcome.blade" - first execute this page.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ## How to Call View
@@ -63,9 +63,116 @@ STEPS: CMD : php artisan make:component sidebar
         </div>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## 3rd ##
+Blade Template
+=> access array within array like below:
+ -> Passing in web.php 
+    Route::get('/web',function(){   
+        //return view('web',array("name" => 'Laxman'));
+        return view('web',array('data'=> array('fname' => 'Laxman', 'lname' => 'Kendre')));
+    });
+ -> Accessing in view file:
+
+    {{ $data['fname'] }}
+    {{ $data['lname'] }}
+
+ -> if statement in laravel:
+ 
+    // if is laravel php  
+    @if($data['fname'] == 'Laxman' && $data['lname'] == "Kendre")
+        {{ 'I am fine!!' }}
+    @else
+       {{ 'no' }}
+    @endif
+
+    // if is normal  php 
+    <?php 
+    if( $data['fname'] == 'Laxman'){
+        echo "Fine";
+    }
+    ?>
+
+
+// For loop
+@for($i=0;$i<5;$i++)
+    {{ $i }}
+@endfor
+
+// For Each Loop
+@foreach($data as $list)
+{{ $list }}
+@endforeach
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## 4th ## Middleware
+
+=> request and responce between (middleware ) exists
+=> type (3)
+1] global. 2] group. 3] route.  
+
+CMD : php artisan make:middleware UserCheck
+# Folder/ files
+ => App->Http->middleware
+
+# in Kernal.php register middleware like below
+ => \App\Http\Middleware\UserCheck::class, - Global Middleware
+
+
+#### Global Middleware ###
+ ----- write below code for redirect blade UserCheck.php Middleware -----
+ ----- write below code for redirect blade UserCheck.php Middleware -----
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class UserCheck
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function handle(Request $request, Closure $next): Response
+    {
+
+        if($request->balance > 1000 ){
+            return redirect('denied');
+        }
+        return $next($request);
+    }
+}
+
+ ----- write  code for redirect blade -----
+ ----- write  code for redirect blade -----
+
+#### Route Middleware ###
+## web.php  : define routes.
+    => Route::view('page','page')->middleware("UserCheck");
+## kernal.php : add below line in file : 
+    =>'UserCheck' => \App\Http\Middleware\UserCheck::class, 59
+## access link : http://127.0.0.1:8000/page?balance=100000
+    => Redirect on denied page.
+
+#### Group Middleware ###
+
+ => web.php:
+    // Group middleware
+    Route::group(['middleware' => ['UserCheck'] ],function(){
+        Route::view('page','page');
+        Route::view('page2','page2');
+    });
+    // Group middleware
+=> kernel.php:
+
+    // Group middleware
+        'UserCheck' => [
+            \App\Http\Middleware\UserCheck::class,
+        ],
+    // Group middleware
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

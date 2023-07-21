@@ -11,4 +11,7 @@ class Form extends Controller
         return $request->all();
        
     }
+    function signup(Request $request){
+        return $request->all();
+    }
 }
