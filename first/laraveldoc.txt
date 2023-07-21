@@ -175,4 +175,164 @@ class UserCheck
     // Group middleware
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ ### Form ###
+ => {{csrf_field()}} - if we are using post request.
+ 
+ ## Form Validation ##
+ request.validate([
+    'name' => 'required|min:3|max:10',
+    'email' => 'required',
+ ])
 
+1]  @error('name')
+       {{$message}}
+    @enderror
+2] 
+
+
+---------------Form form.blade.php ------------
+
+<h1>Form View</h1>
+<form method="post" action="formSubmit">{{ csrf_field() }}
+    <div class="form-controller">
+        <input name="fname" placeholder="Name*" type="text"/>
+    </div>
+    @error('fname')
+        {{$message}}
+    @enderror
+    <div class="form-controller">
+        <input type="text" name="email" placeholder="Email*" />
+    </div>
+    @error('email')
+        {{$message}}
+    @enderror
+    <input type='submit' name='Submit' value='Submit' />
+</form>
+
+
+
+---------------Form Controller form.php ------------
+function index(Request $request){
+    $request->validate([
+        'fname' => 'required|min:3|max:10',
+        'email' => 'required|email',
+    ]);
+    // //return $request->all();
+    echo "hi";
+    
+}
+
+=> -------- Auto Populate the Input Values --------
+    ##]  value="{{ old('name') }}"
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ ### Session ###
+
+1] function session_set(Request $request){        
+    $request->session()->put('name','Laxman');
+    //echo "session_set";
+}
+2] function session_get(Request $request){        
+    echo $request->session()->get('name');
+}
+3] function session_remove(Request $request){
+    return $request->session()->forget('name');
+                                                                                                                                                                                                                                                                                                                                                         
+}
+4]  function session_check(Request $request){
+        if( $request->session()->has('name') ){
+            echo "Yes";
+        }else{
+            echo "No";
+        }
+
+    }
+
+
+------------- Route Create for Session ------------------
+// Session 
+Route::get('/session_set',[ApplyNow::class, 'session_set']);
+Route::get('/session_get',[ApplyNow::class,'session_get']);
+Route::get('/session_remove',[ApplyNow::class,'session_remove']);
+Route::get('/session_check',[ApplyNow::class, 'session_check']);
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ ### Database ###
+
+ ------------------ db end -------------------
+ ------------------ db end -------------------
+
+ <?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class DB_test extends Controller
+{
+    //select
+    function select(){
+        //return DB::table('emp')->get();
+
+        // get all records
+        // $result = DB::table('emp')->get();
+        
+        // get single record
+        // $result = DB::table('emp')->where('eid',1)->get();
+
+        // use conditional operators
+        // exists(), doesntExists(), count(), max('id'), min('id'),avg('id')
+        //$result = DB::table('emp')->where('eid','>',1)->get(); // you can use the conditional operators: > < = <= >= !=
+        
+        // get only id
+        //$result = DB::table('emp')->where('eid','>',1)->select('eid')->get();
+        
+        // get id and name        
+        //$result = DB::table('emp')->where('eid','>',1)->select(['eid','empname'])->get();
+
+        // write raw query
+        // $result = DB::select( 'select * from emp where eid = 1' );
+
+        // order by : desc, asc 
+        $result = DB::table('emp')->orderBy('eid','desc')->get();
+
+
+        // Insert 
+        // DB::table('emp')->insert(
+        //     array('eid'=> 10, 'empname' => 'lkendre')
+        // );
+
+        
+        echo "<pre>";
+        print_r( $result );
+    }
+    function insert(){
+        DB::table('emp')->insert(
+            array('empname'=>'Employee Lk')
+        );
+    }
+    function update(){
+        DB::table('emp')->where('empname','=','Employee Lk')->update(
+            array('empname' => 'Laxman Kendre')
+        );
+    }
+    function delete(){
+        DB::table('emp')->where('eid','=','11')->delete();
+    }
+}
+
+------------------ db end -------------------
+------------------ db end -------------------
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%

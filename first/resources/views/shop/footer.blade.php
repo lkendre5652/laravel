@@ -88,6 +88,7 @@
                                             <li><a href="#">Privacy Policy</a></li>
                                             <li><a href="#">Disclaimer</a></li>
                                             <li><a href="#">Sitemap</a></li>
+                                            <li><a href="/apply-now">Career</a></li>
                                         </ul>
                                     </div>
                                 </div>

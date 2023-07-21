@@ -14,10 +14,29 @@ use App\Http\Controllers\giftCard;
 use App\Http\Controllers\membership;
 use App\Http\Controllers\service;
 use App\Http\Controllers\Form;
+use App\Http\Controllers\ApplyNow;
+use App\Http\Controllers\DB_test;
 // define the home routes
 // Route::get('/about/{id}',[HomeController::class,'about']);
 // blade Template
 //Route::view('web','web');
+// Query Builder
+
+Route::get('/select',[DB_test::class,'select']);
+Route::get('/insert',[DB_test::class,'insert']);
+Route::get('/update',[DB_test::class,'update']);
+Route::get('/delete',[DB_test::class,'delete']);
+
+
+// Session 
+Route::get('/session_set',[ApplyNow::class, 'session_set']);
+Route::get('/session_get',[ApplyNow::class,'session_get']);
+Route::get('/session_remove',[ApplyNow::class,'session_remove']);
+Route::get('/session_check',[ApplyNow::class, 'session_check']);
+// Form Routes
+Route::get('/apply-now',[ApplyNow::class, 'index']);
+Route::post('/apply',[ApplyNow::class, 'apply']);
+Route::get('/thank',[ApplyNow::class, 'thakYou']);
 
 // middleware view
 Route::view('denied','denied');
@@ -32,6 +51,8 @@ Route::group(['middleware' => ['UserCheck'] ],function(){
 });
 // Group middleware
 
+Route::view("maxamount",'maxamount');
+
 
 
 Route::view('mynewpage','mynewpage');
@@ -39,6 +60,8 @@ Route::view('login','login');
 Route::view('signup','register');
 Route::post('/signaction',[Form::class, 'signup']);
 Route::post('/formSubmit',[Form::class,'index']);
+
+
 
 Route::get('/web',function(){   
     //return view('web',array("name" => 'Laxman'));

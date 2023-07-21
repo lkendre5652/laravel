@@ -1,0 +1,1 @@
+denied.blade.php
