@@ -332,6 +332,45 @@ class DB_test extends Controller
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+---------------------How to create models ----------------------
+---------------------How to create models ----------------------
+ ### Models Creations ###
+ # CMD - php artisan make:model Profile
+ => creat table in database like profiles (name should be 's')
+ =>  access table in controller like:
+    namespace App\Http\Controllers;
+    use Illuminate\Http\Request;
+    use App\Models\Profile;
+    class User_Profile extends Controller
+    {
+        //
+        function index(){
+            return Profile::all();
+        }
+    }
+
+
+
+================ Table is different ================
+ ## use in model
+
+class Profile extends Model
+{
+    use HasFactory;
+    protected $table = "emp";
+}
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// $res =  Profile::find(1);
+// $res->delete();
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+---------------------How to create models ----------------------
+---------------------How to create models ----------------------
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%

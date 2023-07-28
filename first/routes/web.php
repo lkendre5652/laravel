@@ -16,11 +16,16 @@ use App\Http\Controllers\service;
 use App\Http\Controllers\Form;
 use App\Http\Controllers\ApplyNow;
 use App\Http\Controllers\DB_test;
+
+use App\Http\Controllers\User_Profile;
+
 // define the home routes
 // Route::get('/about/{id}',[HomeController::class,'about']);
 // blade Template
 //Route::view('web','web');
 // Query Builder
+
+Route::get('profile/',[User_Profile::class, 'index']);
 
 Route::get('/select',[DB_test::class,'select']);
 Route::get('/insert',[DB_test::class,'insert']);
